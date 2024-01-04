@@ -48,3 +48,6 @@ dg.Insertion(u, v) // add an edge
 
 dg.Deletion(u, v) // delete an edge
 ```
+
+## Graph File Format
+Each line contains two endpoints of an edge
