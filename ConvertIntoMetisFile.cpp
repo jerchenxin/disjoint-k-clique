@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -19,7 +20,8 @@ void convertToMetisGraph(const std::string& inputFile, const std::string& output
     inFile >> numVertices >> numEdges;
 
     // Write the header information to the output file
-    outFile << numVertices << " " << numEdges << " 0 0" << std::endl;
+    outFile << numVertices << " " << numEdges << std::endl;
+    // outFile << numVertices << " " << numEdges << " 0 0" << std::endl;
 
     std::vector<std::vector<int>> adjacencyList(numVertices);
 
@@ -34,10 +36,15 @@ void convertToMetisGraph(const std::string& inputFile, const std::string& output
         adjacencyList[vertex2].push_back(vertex1);
     }
 
+    for (auto& i : adjacencyList) {
+        sort(i.begin(), i.end());
+    }
+
     // Write the adjacency list to the output file
     for (const auto& neighbors : adjacencyList) {
         for (const auto& neighbor : neighbors) {
-            outFile << neighbor << " ";
+            // outFile << neighbor << " ";
+            outFile << neighbor + 1 << " ";
         }
         outFile << std::endl;
     }
